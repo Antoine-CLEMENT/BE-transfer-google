@@ -21,11 +21,14 @@ def solver(cost, OWA):
     if OWA == 'utilitarism':
         weights = np.array([1 for i in range(n_agent)])
     elif OWA == 'egalitarism':
+# as we only have the .sort() method for desutilities, weights must be in reverse order because the 'desutilities' should be sorted in descending order
         weights = np.array([0 for i in range(n_agent)])
         weights[-1] = 1
     else : 
-        weights = np.array([ 2* (n_agent - i) + 1 for i in range(1, n_agent + 1)])
-
+# as we only have the .sort() method for desutilities, weights must be in reverse order because the 'desutilities' should be sorted in descending order
+        weights = np.flip(np.array([ 2* (n_agent - i) + 1 for i in range(1, n_agent + 1)]))
+        
+    print(weights)
     to_minimize = np.matmul(weights, how_does_it_cost.sort())
     
     vars = []
